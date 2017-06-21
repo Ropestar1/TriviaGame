@@ -11,3 +11,5 @@ var q9 = ['question 9'. 'answer 9'];
 var q10 = ['question 10'. 'answer 10'];
 
 
+//MAKE BELOW OCCUR AT END OF QUESTIONS PAGE
+//$('button#start').text('<button type="button" class="btn btn-default" id="reset">RESTART</button>');

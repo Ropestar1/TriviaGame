@@ -1,0 +1,12 @@
+#background-image {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	opacity: 0.85;
+	z-index:-1;
+}
+
+.display-text {
+	color: white;
+	
+}

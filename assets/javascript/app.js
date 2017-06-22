@@ -5,6 +5,7 @@ var arrRandomizedChoices;
 
 var correctCount;
 var incorrectCount;
+var outOfTimeCount;
 
 var possibleChoices;
 
@@ -42,12 +43,16 @@ function startUp() {
 
 	correctCount = 0;
 	incorrectCount = 0;
+	outOfTimeCount = 0;
 }
 
 function questionGenerator() {
 	var i = 0;
+	var iterator;
+	console.log('i - initialized',i);
 
 	while (i < 5) {
+		console.log('i - in while',i);
 		choice2 = Object.values(questionAnswerBank)[i][1];
 		choice3 = Object.values(questionAnswerBank)[i][2];
 		choice4 = Object.values(questionAnswerBank)[i][3];
@@ -58,21 +63,54 @@ function questionGenerator() {
 			possibility4 : '<h3>' + choice4 + '</h3>',
 		}
 
+		console.log('i - before jQuery', i);
 		$('h2').html(Object.keys(questionAnswerBank)[i]);
 		$('div#start').html('<h3>' + Object.values(questionAnswerBank)[i][0] + '</h3>');
 		$(possibleChoices.possibility2).appendTo('div#start');
 		$(possibleChoices.possibility3).appendTo('div#start');
 		$(possibleChoices.possibility4).appendTo('div#start');
 
-		//if (i = 0 && userChoice === "Goal") {
-
+		console.log('i - after jQuery', i);
+		
+		// if (i = 0 && userChoice === "Goal") {
+		// 	correctCount++;
 		// }
 
+		// else if (i = 1 && userChoice === "--") {
+		// 	correctCount++;
+		// }
 
+		// else if (i = 2 && userChoice === "--") {
+		// 	correctCount++;
+		// }
 
+		// else if (i = 3 && userChoice === "--") {
+		// 	correctCount++;
+		// }
+
+		// else if (i = 4 && userChoice === "--") {
+		// 	correctCount++
+		// }
+
+		// //add else if for time running out here;
+
+		// else {
+		// 	incorrectCount++;
+		// }
+
+		console.log('i - after functions', i);
 		console.log("counter");
-
+		//makes the iteration wait to move on.
+		
 		i++;
+		//function iterator() {
+		//	i++;
+		//};
+
+		// setTimeout(iterator, 5000);
+		// clearTimeout(iterator);
+
+		console.log('i - at end', i);
 	}	
 }
 

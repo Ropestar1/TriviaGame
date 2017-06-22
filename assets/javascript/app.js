@@ -48,11 +48,10 @@ function startUp() {
 
 function questionGenerator() {
 	var i = 0;
-	//var iterator;
-	//console.log('i - initialized',i);
+	var limit = (Object.keys(questionAnswerBank).length - 1);
+	var delay = 2000;//change to allow for more time!
 
-	for (var i = 0; i < Object.keys(questionAnswerBank).length; i++) {
-	//while (i < 5) {
+	var slideShow = function() {
 		console.log('i - in for loop or while loop',i);
 		choice2 = Object.values(questionAnswerBank)[i][1];
 		choice3 = Object.values(questionAnswerBank)[i][2];
@@ -71,48 +70,44 @@ function questionGenerator() {
 		$(possibleChoices.possibility3).appendTo('div#start');
 		$(possibleChoices.possibility4).appendTo('div#start');
 
-		//console.log('i - after jQuery', i);
+		if (i < limit && i != limit) {
+			setTimeout(slideShow, delay);
+		}
+
+		i++;
 		
-		// if (i = 0 && userChoice === "Goal") {
-		// 	correctCount++;
-		// }
+		//WORK IN PROGRESS - START
+		if (i = 0 && userChoice === "Goal") {
+			correctCount++;
+		}
 
-		// else if (i = 1 && userChoice === "--") {
-		// 	correctCount++;
-		// }
+		else if (i = 1 && userChoice === "--") {
+			correctCount++;
+		}
 
-		// else if (i = 2 && userChoice === "--") {
-		// 	correctCount++;
-		// }
+		else if (i = 2 && userChoice === "--") {
+			correctCount++;
+		}
 
-		// else if (i = 3 && userChoice === "--") {
-		// 	correctCount++;
-		// }
+		else if (i = 3 && userChoice === "--") {
+			correctCount++;
+		}
 
-		// else if (i = 4 && userChoice === "--") {
-		// 	correctCount++
-		// }
+		else if (i = 4 && userChoice === "--") {
+			correctCount++
+		}
 
-		// //add else if for time running out here;
+		//add else if for time running out here;
 
-		// else {
-		// 	incorrectCount++;
-		// }
+		else {
+			incorrectCount++;
+		}
+		//WORK IN PROGRESS - END
 
-		//console.log('i - after functions', i);
 		console.log("counter");
-		//makes the iteration wait to move on.
-		
-		//setTimeout(function(){i++}, 5000);
-		// iterator = function() {
-	 	//i++;
-		// };
+	}
 
-		// setTimeout(iterator, 5000);
-		// clearTimeout(iterator);
-
-		//console.log('i - at end', i);
-	}	
+	slideShow();
 }
 
 $('#start h3').click(function() {

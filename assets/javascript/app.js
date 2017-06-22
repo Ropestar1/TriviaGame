@@ -43,16 +43,17 @@ function startUp() {
 
 	correctCount = 0;
 	incorrectCount = 0;
-	outOfTimeCount = 0;
+	//outOfTimeCount = 0;
 }
 
 function questionGenerator() {
 	var i = 0;
-	var iterator;
-	console.log('i - initialized',i);
+	//var iterator;
+	//console.log('i - initialized',i);
 
-	while (i < 5) {
-		console.log('i - in while',i);
+	for (var i = 0; i < Object.keys(questionAnswerBank).length; i++) {
+	//while (i < 5) {
+		console.log('i - in for loop or while loop',i);
 		choice2 = Object.values(questionAnswerBank)[i][1];
 		choice3 = Object.values(questionAnswerBank)[i][2];
 		choice4 = Object.values(questionAnswerBank)[i][3];
@@ -70,7 +71,7 @@ function questionGenerator() {
 		$(possibleChoices.possibility3).appendTo('div#start');
 		$(possibleChoices.possibility4).appendTo('div#start');
 
-		console.log('i - after jQuery', i);
+		//console.log('i - after jQuery', i);
 		
 		// if (i = 0 && userChoice === "Goal") {
 		// 	correctCount++;
@@ -98,19 +99,19 @@ function questionGenerator() {
 		// 	incorrectCount++;
 		// }
 
-		console.log('i - after functions', i);
+		//console.log('i - after functions', i);
 		console.log("counter");
 		//makes the iteration wait to move on.
 		
-		i++;
-		//function iterator() {
-		//	i++;
-		//};
+		//setTimeout(function(){i++}, 5000);
+		// iterator = function() {
+	 	//i++;
+		// };
 
 		// setTimeout(iterator, 5000);
 		// clearTimeout(iterator);
 
-		console.log('i - at end', i);
+		//console.log('i - at end', i);
 	}	
 }
 

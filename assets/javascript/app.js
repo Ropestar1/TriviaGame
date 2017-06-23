@@ -12,6 +12,7 @@ var possibleChoices;
 var choice2;
 var choice3;
 var choice4;
+var i = 0;
 
 //var falseIndex = Math.floor(Math.random() * 3); //change 3 if arrWrongAnswers length changes
 
@@ -45,10 +46,22 @@ function startUp() {
 }
 
 function questionGenerator() {
-	var i = 0;
+	
 	var limit = (Object.keys(questionAnswerBank).length - 1);
 	var delay = 5000;//change to allow for more time!
 	var userChoice;
+
+	function increase () {
+		clearTimeout(slideShow);
+		if (i<limit) {
+			i++;
+			slideShow();
+		}
+		else if (i === 5) {
+			//put in the counter html
+			$('row').html();
+		}
+	}
 
 	var slideShow = function() {
 		console.log('i - in for loop or while loop',i);
@@ -75,65 +88,86 @@ function questionGenerator() {
 
 		i++;
 
-		//WORK IN PROGRESS - START
-		$('#start choice-a').click(function() {
+		$(document).on("click", '#choice-a', function() {
 			userChoice = 'a';
-			i++;
+			console.log("userChoice a", userChoice);
+			console.log("i value on click", i);
+			// increase();
+			answerCheck();
+
 		});
 
-		$('#start choice-b').click(function() {
+		$(document).on("click", '#choice-b', function() {
 			userChoice = 'b';
-			i++;
+			console.log("userChoice b", userChoice);
+			console.log("i value on click", i);
+			// increase();
+			answerCheck();
 		});
 
-		$('#start choice-c').click(function() {
+		$(document).on("click", '#choice-c', function() {
 			userChoice = 'c';
-			i++;
+			console.log("userChoice c", userChoice);
+			console.log("i value on click", i);
+			// increase();
+			answerCheck();
 		});
 
-		$('#start choice-d').click(function() {
+		$(document).on("click", '#choice-d', function() {
 			userChoice = 'd';
-			i++;
+			console.log("userChoice d", userChoice);
+			console.log("i value on click", i);
+			// increase();
+			answerCheck();
 		});
-
-		if (i === 0 && userChoice === 'b') {
-			//display correct image - applies to below also
-			correctCount++;
-		}
-
-		else if (i === 1 && userChoice === 'a') {
-			correctCount++;
-		}
-
-		else if (i === 2 && userChoice === 'b') {
-			correctCount++;
-		}
-
-		else if (i === 3 && userChoice === 'a') {
-			correctCount++;
-		}
-
-		else if (i === 4 && userChoice === 'd') {
-			correctCount++
-		}
-		//add else if for time running out here; assuming I ahve time
-
-		else if (i === 5) {
-			//put in the counter html
-			$('row').html();
-			
-		}
-
-		else {
-			incorrectCount++;
-		}
-		//WORK IN PROGRESS - END
 
 		console.log("counter");
+		answerCheck();
 	}
 
 	slideShow();
 }
+
+function answerCheck() {
+	if (i === 0 && userChoice === 'b') {
+		//display correct image - applies to below also
+		correctCount++;
+		console.log('correctCount', correctCount);
+		increase();
+	}
+
+	else if (i === 1 && userChoice === 'a') {
+		correctCount++;
+		console.log('correctCount', correctCount);
+		increase();
+	}
+
+	else if (i === 2 && userChoice === 'b') {
+		correctCount++;
+		console.log('correctCount', correctCount);
+		increase();
+	}
+
+	else if (i === 3 && userChoice === 'a') {
+		correctCount++;
+		console.log('correctCount', correctCount);
+		increase();
+	}
+
+	else if (i === 4 && userChoice === 'd') {
+		correctCount++;
+		console.log('correctCount', correctCount);
+		increase();
+	}
+	//add else if for time running out here; assuming I ahve time
+
+	else {
+		incorrectCount++;
+		console.log('incorrectCount', incorrectCount);
+		increase();
+	}
+}
+
 
 $('#start h3').click(function() {
 	questionGenerator();

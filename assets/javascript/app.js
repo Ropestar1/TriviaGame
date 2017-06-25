@@ -1,177 +1,115 @@
 //question and answer variables
-var questionAnswerBank;
-var arrWrongAnswers;
-var arrRandomizedChoices;
+var questions = {
+	q1 : {
+		question : 'Which of the following is an alien race bent on enslaving humankind?',
+		correct : 'Goa\'uld',
+	},
+	q2 : {
+		question : 'What is the name of the shield used to block the Stargate?',
+		correct : 'Iris',
+	},
+	q3 : {
+		question : 'How many members are on the SG-1 recon team to other worlds?',
+		correct: '4',
+	},
+	q4 : {
+		question : 'What state is the Stargate located in?',
+		correct : 'California',
+	},
+	q5 : {
+		question : 'Who is the doctor on the team?',
+		correct : 'Dr. Jackson',
+	},
+}
+
+var choices = {
+	a1 : ['Hollows', questions.q1.correct, 'Death Eaters', 'Androids'],
+	a2 : [questions.q2.correct, 'Anubis', 'Osiris', 'Block'],
+	a3 : ['3', questions.q3.correct, '5', '6'],
+	a4 : [questions.q4.correct, 'New Mexico', 'Colorado', 'Arizona'],
+	a5 : ['Dr. Carter', 'Dr. Osbourne', 'Dr. O\'Neill', questions.q4.correct],
+}
 
 var correctCount;
 var incorrectCount;
 var outOfTimeCount;
 
-var possibleChoices;
-
 var choice2;
 var choice3;
 var choice4;
-var i = 0;
-
-//var falseIndex = Math.floor(Math.random() * 3); //change 3 if arrWrongAnswers length changes
-
-//var buttonDiv = '<div class="btn-group" role="group" aria-label="..."></div>'
-
 
 //function declarations
 function startUp() {
-	//list of questions;
-	questionAnswerBank = {
-		'Which of the following is an alien race bent on enslaving humankind?' : 
-			['Hollows', 'Goa\'uld', 'Death Eaters', 'Androids'],
-		'What is the name of the shield used to block the Stargate?' : 
-			['Iris', 'Anubis', 'Osiris', 'Block'],
-		'How many members are typically in a recon team to other worlds?' : 
-			['3', '4', '5', '6'],
-		'What state is the Stargate located in?' : 
-			['California', 'New Mexico', 'Colorado', 'Arizona'],
-		'Who is the doctor on the team?' : 
-			['Dr. Carter', 'Dr. Osbourne', 'Dr. O\'Neill', 'Dr. Jackson'],
-		// 'What is 6?' : 'a6',
-		// 'What is 7?' : 'a7',
-		// 'What is 8?' : 'a8',
-		// 'What is 9?' : 'a9',
-		// 'What is 10?' : 'a10',
-	}
-
 	correctCount = 0;
 	incorrectCount = 0;
-	//outOfTimeCount = 0;
+	outOfTimeCount = 0;
+	console.log('correctCount', correctCount);
+	console.log('incorrectCount', incorrectCount);
+	
+	$(document).ready(function(){
+		$('#start').on("click", function(){
+			questionGenerator();
+		});
+	});
 }
 
 function questionGenerator() {
-	
-	var limit = (Object.keys(questionAnswerBank).length - 1);
-	var delay = 5000;//change to allow for more time!
+
+	var delay = 1000 * 5;//change to allow for more time!
 	var userChoice;
+	var i = 0;
+	displayLoop();
 
-	function increase () {
-		clearTimeout(slideShow);
-		if (i<limit) {
-			i++;
-			slideShow();
+	function displayLoop() {
+	
+
+		if (i < Object.keys(questions).length) {
+			setTimeout(iterator, delay);
+
+        	function iterator() {
+        		i++;
+            	console.log(i);
+            	displayLoop();
+        	}
+
+			console.log('counter');
+			$('h2').text(Object.values(questions)[i].question);
+			$('#start').html('<h3 data-name="choice-a">' + Object.values(choices)[i][0]);
+			$('#start').append('<h3 data-name="choice-b">' + Object.values(choices)[i][1]);
+			$('#start').append('<h3 data-name="choice-c">' + Object.values(choices)[i][2]);
+			$('#start').append('<h3 data-name="choice-d">' + Object.values(choices)[i][3]);
+
+			$(document).on('click', 'h3', function() {
+				clearTimeout(setTimeout(iterator, delay));
+				userChoice = $(this).text();
+				console.log('userChoice', userChoice);
+
+				if (userChoice === Object.values(questions)[i].correct) {
+					correctCount++;
+					console.log('correcTCount', correctCount);
+					//i++;
+					//displayLoop();
+				}
+
+				else if (userChoice != Object.values(questions)[i].correct && userChoice != 'START GAME') {
+					incorrectCount++;
+					console.log('incorrecCount', incorrectCount);
+					//i++;
+					//displayLoop();
+				}
+			});
 		}
-		else if (i === 5) {
-			//put in the counter html
-			$('row').html();
+
+		else if (i === Object.keys(questions).length) {
+			$('h2').text('Game Summary');
+			$('#start').html('<h3 id="correct-count">Correct Answer Total: ' + correctCount);
+			$('#start').append('<h3 id="incorrect-count">Incorrect Answer Total: ' + incorrectCount);
+			$('#start').append('<h3 id="correct-count">Unsanswered Total: ' + outOfTimeCount);
+			clearTimeout(iterator);
+			///TURN OFF CLICKS HERE?!
 		}
-	}
-
-	var slideShow = function() {
-		console.log('i - in for loop or while loop',i);
-		choice2 = Object.values(questionAnswerBank)[i][1];
-		choice3 = Object.values(questionAnswerBank)[i][2];
-		choice4 = Object.values(questionAnswerBank)[i][3];
-
-		possibleChoices = {
-			possibility2 : '<h3>' + choice2 + '</h3>',
-			possibility3 : '<h3>' + choice3 + '</h3>',
-			possibility4 : '<h3>' + choice4 + '</h3>',
-		}
-
-		console.log('i - before jQuery', i);
-		$('h2').html(Object.keys(questionAnswerBank)[i]);
-		$('div#start').html('<h3>' + Object.values(questionAnswerBank)[i][0] + '</h3>');
-		$(possibleChoices.possibility2).appendTo('div#start');
-		$(possibleChoices.possibility3).appendTo('div#start');
-		$(possibleChoices.possibility4).appendTo('div#start');
-
-		if (i <= limit && i != limit) {
-			setTimeout(slideShow, delay);
-		}
-
-		i++;
-
-		$(document).on("click", '#choice-a', function() {
-			userChoice = 'a';
-			console.log("userChoice a", userChoice);
-			console.log("i value on click", i);
-			// increase();
-			answerCheck();
-
-		});
-
-		$(document).on("click", '#choice-b', function() {
-			userChoice = 'b';
-			console.log("userChoice b", userChoice);
-			console.log("i value on click", i);
-			// increase();
-			answerCheck();
-		});
-
-		$(document).on("click", '#choice-c', function() {
-			userChoice = 'c';
-			console.log("userChoice c", userChoice);
-			console.log("i value on click", i);
-			// increase();
-			answerCheck();
-		});
-
-		$(document).on("click", '#choice-d', function() {
-			userChoice = 'd';
-			console.log("userChoice d", userChoice);
-			console.log("i value on click", i);
-			// increase();
-			answerCheck();
-		});
-
-		console.log("counter");
-		answerCheck();
-	}
-
-	slideShow();
+    }
 }
-
-function answerCheck() {
-	if (i === 0 && userChoice === 'b') {
-		//display correct image - applies to below also
-		correctCount++;
-		console.log('correctCount', correctCount);
-		increase();
-	}
-
-	else if (i === 1 && userChoice === 'a') {
-		correctCount++;
-		console.log('correctCount', correctCount);
-		increase();
-	}
-
-	else if (i === 2 && userChoice === 'b') {
-		correctCount++;
-		console.log('correctCount', correctCount);
-		increase();
-	}
-
-	else if (i === 3 && userChoice === 'a') {
-		correctCount++;
-		console.log('correctCount', correctCount);
-		increase();
-	}
-
-	else if (i === 4 && userChoice === 'd') {
-		correctCount++;
-		console.log('correctCount', correctCount);
-		increase();
-	}
-	//add else if for time running out here; assuming I ahve time
-
-	else {
-		incorrectCount++;
-		console.log('incorrectCount', incorrectCount);
-		increase();
-	}
-}
-
-
-$('#start h3').click(function() {
-	questionGenerator();
-});
 
 //FUNCTION CALLS
 startUp();

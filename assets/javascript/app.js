@@ -47,7 +47,7 @@ function startUp() {
 	console.log('incorrectCount', incorrectCount);
 	
 	$(document).ready(function(){
-		$('#start').on("click", function(){
+		$('#start').one("click", function(){
 			questionGenerator();
 		});
 	});
@@ -58,11 +58,10 @@ function questionGenerator() {
 	var delay = 1000 * 5;//change to allow for more time!
 	var userChoice;
 	var i = 0;
+
 	displayLoop();
 
 	function displayLoop() {
-	
-
 		if (i < Object.keys(questions).length) {
 			setTimeout(iterator, delay);
 
@@ -86,14 +85,14 @@ function questionGenerator() {
 
 				if (userChoice === Object.values(questions)[i].correct) {
 					correctCount++;
-					console.log('correcTCount', correctCount);
+					console.log('correctCount', correctCount);
 					//i++;
 					//displayLoop();
 				}
 
 				else if (userChoice != Object.values(questions)[i].correct && userChoice != 'START GAME') {
 					incorrectCount++;
-					console.log('incorrecCount', incorrectCount);
+					console.log('incorrectCount', incorrectCount);
 					//i++;
 					//displayLoop();
 				}
